@@ -63,7 +63,7 @@ It does **not** interact with illegal services or hidden transactions.
 
 ## 🙏 Credit & Mission
 
-**Built by John Kearney** — cybersecurity student, reformed fighter, and defender of the people.
+**Built by Reformed-Root CyberSolutions** — cybersecurity student, reformed fighter, and defender of the people.
 
 > "I built this tool to monitor the digital networks poisoning our streets.  
 > This isn’t just code — it’s a response."
