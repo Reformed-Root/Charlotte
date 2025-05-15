@@ -4,7 +4,7 @@ import re
 import csv
 from datetime import datetime
 
-# ===Operation ReaperNet Config== #
+# ===Charlotte's Web Config== #
 target_urls = [
     "https://target_url",
     "https://en.wikipedia.org/wiki/fentanyl"
