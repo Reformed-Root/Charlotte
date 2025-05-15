@@ -1,10 +1,11 @@
-import requests
-from bs4 import BeautifulSoup
-import re
-import csv
-from datetime import datetime
+import requests  # For sending HTTP requests to target URLs
+from bs4 import BeautifulSoup  # For parsing HTML and extracting text
+import re  # For searching keyword matches using regular expressions
+import csv  # For writing results to a CSV file
+from datetime import datetime  # For adding timestamps to results
 
-# ===Operation ReaperNet Config== #
+# === Charlotte's Web Config === #
+# List of URLs to scan for keywords
 target_urls = [
     "https://target_url",  # Replace with actual URL targets
     "https://en.wikipedia.org/wiki/fentanyl"
@@ -66,5 +67,5 @@ if __name__ == "__main__":
         with open(output_file, 'x', newline='', encoding='utf-8') as f:
             csv.writer(f).writerow(["URL", "Keyword", "Context", "Timestamp"])
     except FileExistsError:
-        pass  # Don't overwrite existing file
-    main()
+        pass  # Do nothing if file already exists
+    main()  # Launch the scanner
