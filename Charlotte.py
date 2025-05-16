@@ -8,11 +8,7 @@ from collections import deque
 
 
 # === Charlotte's Config === #
-# List of URLs to scan for keywords
-#target_urls = [
-    #"https://target_url",  # Replace with actual URL targets
-    #"https://en.wikipedia.org/wiki"
-#]
+
 
 # List of keywords associated with fentanyl and synthetic opioids
 keywords = [
