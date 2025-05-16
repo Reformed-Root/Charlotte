@@ -1,4 +1,4 @@
-# 🕷️ Charlotte's Web
+# 🕷️ Charlotte
 
 An open-source web crawler for ethical cyber threat intelligence, focused on exposing fentanyl-related activity across the internet.
 
@@ -6,7 +6,7 @@ An open-source web crawler for ethical cyber threat intelligence, focused on exp
 
 ## 🧠 Overview
 
-**Charlotte's Web** is a lightweight Python crawler developed under **Operation ReaperNet**, a mission to gather open-source intelligence (OSINT) on fentanyl and synthetic opioid distribution. It scrapes public websites, scans for high-risk keywords, and logs findings for analysis.
+**Charlotte** is a lightweight Python crawler developed under **Operation ReaperNet**, a mission to gather open-source intelligence (OSINT) on fentanyl and synthetic opioid distribution. It scrapes public websites, scans for high-risk keywords, and logs findings for analysis.
 
 This project supports ethical cyber investigations and provides a foundation for building automated recon tools in the fight against digital narcotics trafficking.
 
@@ -53,7 +53,7 @@ Logged: [URL, Keyword, Context, Timestamp]
 
 ## ⚖️ Legal & Ethical Notice
 
-Charlotte's Web is strictly for **legal and ethical purposes**.  
+Charlotte is strictly for **legal and ethical purposes**.  
 It only accesses **publicly available content**.  
 It does **not** interact with illegal services or hidden transactions.
 
