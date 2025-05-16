@@ -4,7 +4,7 @@ import re  # For searching keyword matches using regular expressions
 import csv  # For writing results to a CSV file
 from datetime import datetime  # For adding timestamps to results
 
-# === Charlotte's Web Config === #
+# === Charlotte's Config === #
 # List of URLs to scan for keywords
 target_urls = [
     "https://target_url",  # Replace with actual URL targets
