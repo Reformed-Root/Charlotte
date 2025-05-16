@@ -8,7 +8,11 @@ from collections import deque
 
 
 # === Charlotte's Config === #
-
+# List of URLs to scan for keywords
+#target_urls = [
+    #"https://target_url",  # Replace with actual URL targets
+    #"https://en.wikipedia.org/wiki"
+#]
 
 # List of keywords associated with fentanyl and synthetic opioids
 keywords = [
@@ -24,7 +28,15 @@ output_file = "charlotte's_web.csv"
 # === Main scanning function === #
 def charlotte(url):
     try:
-        headers = {'User-Agent': 'Mozilla/5.0'}
+        headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.5',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Connection': 'keep-alive',
+    'Upgrade-Insecure-Requests': '1'
+}
+
         response = requests.get(url, headers=headers, timeout=10)
         soup = BeautifulSoup(response.text, "html.parser")  # Parse the HTML content
         text = soup.get_text().lower()  # Extract all text and convert to lowercase for keyword matching
@@ -34,7 +46,8 @@ def charlotte(url):
         for keyword in keywords:
             for match in re.finditer(rf"(.{{0,40}}{re.escape(keyword)}.{{0,40}})", text):
                 context = match.group(0).strip()  # Capture 40 characters before and after the keyword
-                hits.append((url, keyword, context, datetime.utcnow().isoformat()))  # Append result with timestamp
+                hits.append((url, keyword, context, datetime.now(timezone.utc).isoformat()
+))  # Append result with timestamp
         return hits
     except Exception as e:
         print(f"[ERROR] Could Not Scan {url}: {e}")  # Handle network/parse errors gracefully
@@ -45,9 +58,9 @@ def crawl_domain(base_url):
     visited = set()
     #queue = deque([base_url])
     all_hits = []
+    headers = {'User-Agent': 'Mozilla/5.0'}
 
-    try:
-        headers = {'User-Agent': 'Mozilla/5.0'}
+    try:    
         response = requests.get(base_url, headers=headers, timeout=10)
 
         final_url = response.url  # Follow redirect
@@ -57,34 +70,46 @@ def crawl_domain(base_url):
         print(f"[ERROR] Could not reach domain: {e}")
         return []
 
-
+    # Main crawl loop
     while queue:
-        current_url = queue.popleft()
-        if current_url in visited:
-            continue
+        current_batch = []
 
-        print(f"[*] Crawling: {current_url}")
-        visited.add(current_url)
+        # Batch up to 10 new URLs
+        while queue and len(current_batch) < 10:
+            url = queue.popleft()
+            if url not in visited:
+                visited.add(url)
+                current_batch.append(url)
 
-        try:
-            response = requests.get(current_url, timeout=10)
-            soup = BeautifulSoup(response.text, "html.parser")
+        # Use ThreadPoolExecutor to scan current batch
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            future_to_url = {executor.submit(charlotte, url): url for url in current_batch}
 
-            # Run Charlotte's scan on this page
-            hits = charlotte(current_url)
-            all_hits.extend(hits)
+            for future in as_completed(future_to_url):
+                url = future_to_url[future]
+                try:
+                    hits = future.result()
+                    all_hits.extend(hits)
+                except Exception as e:
+                    print(f"[ERROR] Failed to scan {url}: {e}")
 
-            # Find all internal links
-            for tag in soup.find_all("a", href=True):
-                href = tag["href"]
-                full_url = urljoin(current_url, href)
-                target_domain = urlparse(full_url).netloc
+        # Now that pages are scanned, extract links (single-threaded)
+        for url in current_batch:
+            try:
+                res = requests.get(url, headers=headers, timeout=10)
+                soup = BeautifulSoup(res.text, "html.parser")
 
-                if target_domain == base_domain and full_url not in visited and full_url not in queue:
-                    queue.append(full_url)
-            
-        except Exception as e:
-            print(f"[ERROR] Could not crawl {current_url}: {e}")
+                # Find all internal links
+                for tag in soup.find_all("a", href=True):
+                    href = tag["href"]
+                    full_url = urljoin(url, href)
+                    target_domain = urlparse(full_url).netloc
+
+                    if target_domain == base_domain and full_url not in visited and full_url not in queue:
+                        queue.append(full_url)
+
+            except Exception as e:
+                print(f"[ERROR] Could not crawl {url}: {e}")
     return all_hits
 
 
@@ -99,7 +124,7 @@ def charlottes_web(results):
 def main():
     print("**== Operation ReaperNet: Domain Recon Mode ==**")
     domain = input("Enter a domain to crawl (e.g. https://example.com): ").strip()
-    #results = crawl_domain(domain)
+   
     
     try:
         results = crawl_domain(domain)
