@@ -2,17 +2,14 @@ import requests  # For sending HTTP requests to target URLs
 from bs4 import BeautifulSoup  # For parsing HTML and extracting text
 import re  # For searching keyword matches using regular expressions
 import csv  # For writing results to a CSV file
-from datetime import datetime  # For adding timestamps to results
+from datetime import datetime, timezone
+  # For adding timestamps to results
 from urllib.parse import urljoin, urlparse
 from collections import deque
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 # === Charlotte's Config === #
-# List of URLs to scan for keywords
-#target_urls = [
-    #"https://target_url",  # Replace with actual URL targets
-    #"https://en.wikipedia.org/wiki"
-#]
 
 # List of keywords associated with fentanyl and synthetic opioids
 keywords = [
@@ -40,6 +37,9 @@ def charlotte(url):
         response = requests.get(url, headers=headers, timeout=10)
         soup = BeautifulSoup(response.text, "html.parser")  # Parse the HTML content
         text = soup.get_text().lower()  # Extract all text and convert to lowercase for keyword matching
+        #print(f"[DEBUG] Scanning {url} — first 500 chars:")
+        #print(text[:500])
+
         hits = []
 
         # Search for each keyword in the text using regular expressions

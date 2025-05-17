@@ -17,7 +17,8 @@ This project supports ethical cyber investigations and provides a foundation for
 - ✅ Crawl public-facing websites  
 - ✅ Scan for fentanyl-related keywords  
 - ✅ Extract 40-character context around each hit  
-- ✅ Timestamp and save results to a CSV  
+- ✅ Timestamp and save results to a CSV
+- ✅ Multi-threaded crawling
 - ✅ Easily customizable: keywords, URLs, output formats  
 
 ---
@@ -43,9 +44,7 @@ Logged: [URL, Keyword, Context, Timestamp]
 
 ## ⚙️ Future Plans
 
-- [ ] Darknet (.onion) crawling via Tor proxy  
-- [ ] Honeypot integration  
-- [ ] Multi-threaded crawling  
+- [ ] Darknet (.onion) crawling via Tor proxy    
 - [ ] Daily scan scheduler (cron/Task Scheduler)  
 - [ ] Visualization dashboard with graphs and alerts  
 
