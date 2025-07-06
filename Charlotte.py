@@ -19,20 +19,9 @@ with open(output_file, mode='w', newline='', encoding='utf-8') as f:
     writer.writerow(["URL", "Keyword", "Context", "Timestamp"])
 
 
-# List of keywords associated with fentanyl and synthetic opioids
+# List of keywords
 keywords = [
-    "fentanyl","fetynal","xylazine", "precursor", "acetylfentanyl",
-    "carfentanil", "analogue", "hydrochloride", "RC chemical",
-    "synth", "bulk powder", "darknet pills", "blues", "m-30s",
-    "m30s", "fet", "fent", "fetty",
-    "fentanilo", "xilazina", "precursor", "acetilfentanilo",
-    "carfentanilo", "análogo", "hidrocloruro", "químico rc",
-    "sintético", "polvo a granel", "pastillas del mercado negro",
-    "azules", "fenta", "芬太尼",
-    "赛拉嗪", "前体", "乙酰芬太尼", "卡芬太尼",
-    "类似物", "盐酸盐", "研究化学品", "合成毒品",
-    "散装粉末", "暗网药丸", "蓝色药丸", "M-30", "M30",
-    "芬太", "芬太尼毒品"
+    #Enter Keywords Here
 ]
 
 
@@ -164,7 +153,7 @@ def charlottes_web(results):
 
 # === Entry point for the program === #
 def main():
-    print("**== Operation ReaperNet: Domain Recon Mode ==**")
+    print("**== Operation Charlotte's Web: Domain Recon Mode ==**")
     domain = input("Enter a domain to crawl (e.g. https://example.com): ").strip()
    
     
