@@ -12,9 +12,16 @@ import time, random
 
 # === Charlotte's Config === #
 
+# === Clear old CSV results before new scan === #
+output_file = "charlotte's_web.csv"
+with open(output_file, mode='w', newline='', encoding='utf-8') as f:
+    writer = csv.writer(f)
+    writer.writerow(["URL", "Keyword", "Context", "Timestamp"])
+
+
 # List of keywords associated with fentanyl and synthetic opioids
 keywords = [
-    "fentanyl", "xylazine", "precursor", "acetylfentanyl",
+    "fentanyl","fetynal","xylazine", "precursor", "acetylfentanyl",
     "carfentanil", "analogue", "hydrochloride", "RC chemical",
     "synth", "bulk powder", "darknet pills", "blues", "m-30s",
     "m30s", "fet", "fent", "fetty",
@@ -58,7 +65,9 @@ def charlotte(url):
     'Accept-Language': 'en-US,en;q=0.5',
     'Accept-Encoding': 'gzip, deflate',
     'Connection': 'keep-alive',
-    'Upgrade-Insecure-Requests': '1'
+    'Upgrade-Insecure-Requests': '1',
+    'Cache-Control': 'no-cache',
+
 }
 
         response = requests.get(url, headers=headers, timeout=10)
