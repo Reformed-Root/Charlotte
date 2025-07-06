@@ -1,72 +1,57 @@
-# 🕷️ Charlotte
+🕷️ Charlotte
+An open-source web crawler for open-source intelligence (OSINT) collection.
 
-An open-source web crawler for ethical cyber threat intelligence, focused on exposing fentanyl-related activity across the internet.
+Overview:
+Charlotte is a lightweight Python-based crawler designed for OSINT tasks. It retrieves public web pages, scans for custom keywords, and logs contextual hits for analysis.
 
----
+The project is intended for security researchers, analysts, and developers who need a flexible foundation for building automated reconnaissance and data-gathering workflows.
 
-## 🧠 Overview
+Features:
+✅ Crawl public-facing websites
 
-**Charlotte** is a lightweight Python crawler developed under **Operation ReaperNet**, a mission to gather open-source intelligence (OSINT) on fentanyl and synthetic opioid distribution. It scrapes public websites, scans for high-risk keywords, and logs findings for analysis.
+✅ Scan for user-defined keywords
 
-This project supports ethical cyber investigations and provides a foundation for building automated recon tools in the fight against digital narcotics trafficking.
+✅ Extract 40-character context around each match
 
----
+✅ Timestamp and save results to CSV
 
-## 🔍 Features
+✅ Multi-threaded crawling
 
-- ✅ Crawl public-facing websites  
-- ✅ Scan for fentanyl-related keywords  
-- ✅ Extract 40-character context around each hit  
-- ✅ Timestamp and save results to a CSV
-- ✅ Multi-threaded crawling
-- ✅ Easily customizable: keywords, URLs, output formats  
+✅ Easily customizable (keywords, URLs, output format)
 
----
+Sample Use Case:
+Example Target: https://en.wikipedia.org/wiki/Open-source_intelligence
+Example Keyword Match: "Open-source intelligence (OSINT) is..."
+Logged Output: [URL, Keyword, Context, Timestamp]
 
-## 🧪 Sample Use Case
-Target: https://en.wikipedia.org/wiki/Fentanyl
-Keyword Match: "Fentanyl is a powerful synthetic opioid used in medicine..."
-Logged: [URL, Keyword, Context, Timestamp]
+Tech Stack:
+Python 3.13
 
+requests – page retrieval
 
+BeautifulSoup – HTML parsing
 
----
+re – regular expression matching
 
-## 🛠️ Tech Stack
+csv, datetime – logging and reporting
 
-- Python 3.13  
-- `requests` – page retrieval  
-- `BeautifulSoup` – HTML parsing  
-- `re` – regex keyword detection  
-- `csv`, `datetime` – logging/reporting  
+Planned Improvements:
+ Support for Tor proxy and .onion sites
 
----
+ Daily scan scheduling (cron/Task Scheduler)
 
-## ⚙️ Future Plans
+ Visualization dashboard with graphs and alerts
 
-- [ ] Darknet (.onion) crawling via Tor proxy    
-- [ ] Daily scan scheduler (cron/Task Scheduler)  
-- [ ] Visualization dashboard with graphs and alerts  
+Legal & Ethical Notice:
+Charlotte is intended for legal and ethical OSINT activities.
+It only accesses publicly available content and does not interact with hidden services or private data.
 
----
+Always ensure you have permission to crawl target sites and comply with their terms of service.
 
-## ⚖️ Legal & Ethical Notice
+Credits:
+Created by John Kearney — cybersecurity professional and aspiring full-stack developer.
 
-Charlotte is strictly for **legal and ethical purposes**.  
-It only accesses **publicly available content**.  
-It does **not** interact with illegal services or hidden transactions.
-
-> Always use this software responsibly and within the law.
-
----
-
-## 🙏 Credit & Mission
-
-**Built by Reformed-Root CyberSolutions** — cybersecurity student, reformed fighter, and defender of the people.
-
-> "I built this tool to monitor the digital networks poisoning our streets.  
-> This isn’t just code — it’s a response."
-
+I built Charlotte as a personal project to make OSINT tasks easier and more repeatable. It’s free to use and modify — feel free to improve it or adapt it for your own work! 
 ---
 
 ## 📦 Installation
